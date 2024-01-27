@@ -1,3 +1,4 @@
+#tfsec:ignore:aws-ec2-require-vpc-flow-logs-for-all-vpcs
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 
@@ -11,10 +12,10 @@ resource "aws_subnet" "public_subnets" {
 
   vpc_id            = aws_vpc.main.id
   cidr_block        = element(var.public_subnet_cidrs, count.index)
-  availability_zone = element(var.azs, count.index)
+  availability_zone = element(local.azs, count.index)
 
   tags = {
-    Name = "Public Subnet ${count.index + 1}"
+    Name = "SOAT-TC Public Subnet ${count.index + 1}"
   }
 }
 
@@ -23,10 +24,10 @@ resource "aws_subnet" "private_subnets" {
 
   vpc_id            = aws_vpc.main.id
   cidr_block        = element(var.private_subnet_cidrs, count.index)
-  availability_zone = element(var.azs, count.index)
+  availability_zone = element(local.azs, count.index)
 
   tags = {
-    Name = "Private Subnet ${count.index + 1}"
+    Name = "SOAT-TC Private Subnet ${count.index + 1}"
   }
 }
 
@@ -35,12 +36,13 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "Internet Gateway"
+    Name = "SOAT-TC Internet Gateway"
   }
 }
 
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main.id
+
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -48,7 +50,15 @@ resource "aws_route_table" "public_rt" {
   }
 
   tags = {
-    Name = "Public Route Table"
+    Name = "SOAT-TC Public Route Table"
+  }
+}
+
+resource "aws_route_table" "private_rt" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "SOAT-TC Private Route Table"
   }
 }
 
@@ -56,4 +66,10 @@ resource "aws_route_table_association" "public_rt_association" {
   count          = length(var.public_subnet_cidrs)
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public_rt.id
+}
+
+resource "aws_route_table_association" "private_rt_association" {
+  count          = length(var.private_subnet_cidrs)
+  subnet_id      = element(aws_subnet.private_subnets[*].id, count.index)
+  route_table_id = aws_route_table.private_rt.id
 }

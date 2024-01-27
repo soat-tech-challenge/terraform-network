@@ -3,11 +3,13 @@ provider "aws" {
 
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
+  token      = var.aws_session_token
 
   default_tags {
     tags = {
       Organization = "soat-tech-challenge"
-      # Workspace    = var.cloud_workspace
+      Workspace    = "network-staging"
     }
   }
 }
+
