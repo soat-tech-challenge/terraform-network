@@ -12,12 +12,12 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.67.0"
+      version = "5.34.0"
     }
 
     tfe = {
       source  = "hashicorp/tfe"
-      version = "~> 0.49.2"
+      version = "~> 0.51.1"
     }
   }
 }
