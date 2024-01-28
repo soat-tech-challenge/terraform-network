@@ -74,3 +74,32 @@ resource "aws_route_table_association" "private_rt_association" {
   subnet_id      = element(aws_subnet.private_subnets[*].id, count.index)
   route_table_id = aws_route_table.private_rt.id
 }
+
+resource "aws_vpc_endpoint" "dynamodb" {
+  service_name = "com.amazonaws.${var.aws_region}.dynamodb"
+  vpc_id       = aws_vpc.main.id
+
+  route_table_ids = [aws_route_table.public_rt.id]
+
+  tags = {
+    Name = "SOAT-TC DynamoDB VPC Gateway Endpoint"
+  }
+}
+
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    protocol  = -1
+    self      = true
+    from_port = 0
+    to_port   = 0
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
