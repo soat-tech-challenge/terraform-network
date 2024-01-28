@@ -15,6 +15,6 @@ resource "aws_apigatewayv2_stage" "main" {
   }
 
   tags = {
-    Name = "SOAT-TC API Default Stage"
+    Name = "SOAT-TC API GW Default Stage"
   }
 }

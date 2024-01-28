@@ -1,4 +1,4 @@
-output "api_gateway_api" {
+output "api_gw_gateway_api" {
   description = "HTTP API"
   value = {
     "api_endpoint" : aws_apigatewayv2_api.main.api_endpoint
@@ -11,7 +11,7 @@ output "api_gateway_api" {
   }
 }
 
-output "api_gateway_stage" {
+output "api_gw_gateway_stage" {
   description = "Default Stage"
   value = {
     "api_id" : aws_apigatewayv2_stage.main.api_id
@@ -21,3 +21,7 @@ output "api_gateway_stage" {
     "tags" : aws_apigatewayv2_stage.main.tags
   }
 }
+
+# output "api_gw_routes_to_be_integrated" {
+
+# }
