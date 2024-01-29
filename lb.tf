@@ -24,7 +24,7 @@ resource "aws_lb_listener" "main" {
     fixed_response {
       content_type = "text/plain"
       status_code  = "418"
-      message_body = "SOAT Tech Challenge - Invalid destination"
+      message_body = "SOAT Tech Challenge - ALB Invalid destination"
     }
   }
 
