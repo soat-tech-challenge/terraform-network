@@ -8,6 +8,11 @@ resource "aws_lb_target_group" "ecs_identification_svc_tg" {
   target_type = "ip"
   vpc_id      = aws_vpc.main.id
 
+  health_check {
+    interval = 10
+    path     = "/identification/actuator/health"
+  }
+
   tags = {
     Name : "SOAT-TC ALB Identification Service Target Group"
   }
@@ -19,6 +24,11 @@ resource "aws_lb_target_group" "ecs_order_svc_tg" {
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = aws_vpc.main.id
+
+  health_check {
+    interval = 10
+    path     = "/order/actuator/health"
+  }
 
   tags = {
     Name : "SOAT-TC ALB Order Service Target Group"
@@ -32,6 +42,12 @@ resource "aws_lb_target_group" "ecs_payment_svc_tg" {
   target_type = "ip"
   vpc_id      = aws_vpc.main.id
 
+  health_check {
+    interval = 10
+    path     = "/payment/actuator/health"
+  }
+
+
   tags = {
     Name : "SOAT-TC ALB Payment Service Target Group"
   }
@@ -44,6 +60,12 @@ resource "aws_lb_target_group" "ecs_production_svc_tg" {
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = aws_vpc.main.id
+
+  health_check {
+    interval = 10
+    path     = "/production/actuator/health"
+  }
+
 
   tags = {
     Name : "SOAT-TC ALB Production Service Target Group"
