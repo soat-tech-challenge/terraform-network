@@ -56,3 +56,26 @@ output "vpc_private_rt" {
     "vpc_id" : aws_route_table.private_rt.vpc_id
   }
 }
+
+output "vpc_endpoint_dynamodb" {
+  description = "Endpoint for DynamoDB"
+  value = {
+    "arn" : aws_vpc_endpoint.dynamodb.arn,
+    "id" : aws_vpc_endpoint.dynamodb.id,
+    "service_name" : aws_vpc_endpoint.dynamodb.service_name,
+    "vpc_endpoint_type" : aws_vpc_endpoint.dynamodb.vpc_endpoint_type,
+    "vpc_id" : aws_vpc_endpoint.dynamodb.vpc_id,
+  }
+}
+
+output "vpc_endpoint_sqs" {
+  description = "Endpoint for SQS"
+  value = {
+    "arn" : aws_vpc_endpoint.sqs.arn,
+    "dns_entry" : aws_vpc_endpoint.sqs.dns_entry,
+    "id" : aws_vpc_endpoint.sqs.id,
+    "service_name" : aws_vpc_endpoint.sqs.service_name,
+    "vpc_endpoint_type" : aws_vpc_endpoint.sqs.vpc_endpoint_type,
+    "vpc_id" : aws_vpc_endpoint.sqs.vpc_id,
+  }
+}

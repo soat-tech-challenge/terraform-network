@@ -79,13 +79,30 @@ resource "aws_route_table_association" "private_rt_association" {
 }
 
 resource "aws_vpc_endpoint" "dynamodb" {
-  service_name = "com.amazonaws.${var.aws_region}.dynamodb"
-  vpc_id       = aws_vpc.main.id
+  service_name      = "com.amazonaws.${var.aws_region}.dynamodb"
+  vpc_id            = aws_vpc.main.id
+  vpc_endpoint_type = "Gateway"
 
   route_table_ids = [aws_route_table.public_rt.id]
 
   tags = {
     Name = "SOAT-TC DynamoDB VPC Gateway Endpoint"
+  }
+}
+
+
+resource "aws_vpc_endpoint" "sqs" {
+  service_name      = "com.amazonaws.${var.aws_region}.sqs"
+  vpc_id            = aws_vpc.main.id
+  vpc_endpoint_type = "Interface"
+
+  subnet_ids         = aws_subnet.public_subnets[*].id
+  security_group_ids = [aws_default_security_group.default.id]
+
+  private_dns_enabled = true
+
+  tags = {
+    Name = "SOAT-TC SQS VPC Interface Endpoint"
   }
 }
 
