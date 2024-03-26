@@ -10,7 +10,7 @@ resource "aws_apigatewayv2_stage" "main" {
   auto_deploy = true
 
   access_log_settings {
-    destination_arn = aws_cloudwatch_log_group.api_gateway_access_logs.arn
+    destination_arn = aws_cloudwatch_log_group.api_gateway_access_log.arn
     format          = "$context.identity.sourceIp - [$context.requestTime] \"$context.routeKey $context.protocol\" $context.status $context.responseLength $context.requestId"
   }
 
