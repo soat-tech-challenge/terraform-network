@@ -22,6 +22,12 @@ output "api_gw_gateway_stage" {
   }
 }
 
-# output "api_gw_routes_to_be_integrated" {
-
-# }
+output "api_gw_integration_proxy_to_alb" {
+  description = "API Gateway Integration Proxy to ALB"
+  value = {
+    "api_id" : aws_apigatewayv2_integration.proxy_to_alb.api_id
+    "description" : aws_apigatewayv2_integration.proxy_to_alb.description
+    "id" : aws_apigatewayv2_integration.proxy_to_alb.id
+    "integration_type" : aws_apigatewayv2_integration.proxy_to_alb.integration_type
+  }
+}

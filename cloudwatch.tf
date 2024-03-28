@@ -28,7 +28,7 @@ resource "aws_flow_log" "vpc" {
 
 #tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "vpc_flow_log" {
-  name              = "/aws/apigateway/SOAT-TC_VPC_Flow_Logs"
+  name              = "/aws/vpc/SOAT-TC_VPC_Flow_Logs"
   retention_in_days = 30
 
   tags = {
