@@ -14,11 +14,11 @@ output "api_gw_gateway_api" {
 output "api_gw_gateway_stage" {
   description = "Default Stage"
   value = {
-    "api_id" : aws_apigatewayv2_stage.main.api_id
-    "arn" : aws_apigatewayv2_stage.main.arn
-    "execution_arn" : aws_apigatewayv2_stage.main.execution_arn
-    "id" : aws_apigatewayv2_stage.main.id
-    "tags" : aws_apigatewayv2_stage.main.tags
+    "api_id" : aws_apigatewayv2_stage.default.api_id
+    "arn" : aws_apigatewayv2_stage.default.arn
+    "execution_arn" : aws_apigatewayv2_stage.default.execution_arn
+    "id" : aws_apigatewayv2_stage.default.id
+    "tags" : aws_apigatewayv2_stage.default.tags
   }
 }
 
